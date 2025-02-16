@@ -85,7 +85,7 @@ def main(cmd_args):
 	print(f"User dialog acts: {user.dialog_acts}")
 
 	#with open("data/p4g/300_dialog_turn_based.pkl", "rb") as f:
-	with open("E:\pycharm project\GDPZero\data\p4g/300_dialog_turn_based.pkl", "rb") as f:
+	with open("", "rb") as f:
 		all_dialogs = pickle.load(f)
 
 	num_dialogs = cmd_args.num_dialogs

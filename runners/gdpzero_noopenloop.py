@@ -76,7 +76,7 @@ def main(cmd_args):
 
 	game = PersuasionGame(system, user)
 
-	with open("data/p4g/300_dialog_turn_based.pkl", "rb") as f:
+	with open("", "rb") as f:
 		all_dialogs = pickle.load(f)
 
 	num_dialogs = 20
@@ -206,7 +206,7 @@ def main(cmd_args):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--output', type=str, default="outputs/gdpzero_noopenloop.pkl", help='output file')
+	parser.add_argument('--output', type=str, default="", help='output file')
 	parser.add_argument('--llm', type=str, default="code-davinci-002", choices=["code-davinci-002", "gpt-3.5-turbo", "chatgpt"], help='OpenAI model name')
 	parser.add_argument('--gen_sentences', type=int, default=-1, help='max number of sentences to generate')
 	parser.add_argument('--num_mcts_sims', type=int, default=20, help='number of mcts simulations')

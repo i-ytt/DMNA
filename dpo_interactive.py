@@ -183,7 +183,7 @@ if __name__ == '__main__':
     parser.add_argument('--sessions_num', type=int, default=50, help='test session num')
     parser.add_argument('--user_model', type=str, default='gpt-3.5-turbo-1106')
     parser.add_argument('--critic_model', type=str, default='gpt-3.5-turbo-1106')
-    parser.add_argument('--model_name', type=str, default='llama3.2', help='[llama3.2, goal-dpo, goal-sec-dpo, gpt-3.5-turbo-1106, goal-cb-dpo]')
+    parser.add_argument('--model_name', type=str, default='llama3.2', help='')
     parser.add_argument('--max_turn', type=int, default=12, choices=[18, 9, 12])
     parser.add_argument('--save_exp', action='store_true', help='save experience or not.')
     parser.add_argument('--reflexion', action='store_true', help='use reflexion')

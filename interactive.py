@@ -416,7 +416,7 @@ def main(args):
     if args.algo == 'gdpzero':
         print("using GDPZero as planning algorithm")
         sessions_num = args.sessions_num
-        path = f'E:\pycharm project\GDPZero\data\{args.dataset}\gdp_resist_{sessions_num}_sessions_2_10.json'
+        path = ''
         infile = open(path, 'w', encoding='utf-8')
         dpo_infile = open(path[:-5] + '_dpo.json', 'w', encoding='utf-8')
         session_elements = []
