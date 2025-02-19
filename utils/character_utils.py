@@ -138,7 +138,7 @@ def output_format(output):
         return None
 
 
-def pg_sys_ans(state, model='llama3.2', reactor=False, reflexion='', future='', reflexion_cur_num=1):
+def pg_sys_ans(state, model='llama3.2', reactor=False, reflexion='', reflexion_cur_num=1):
     history = ''
     for e in state.history:
         history += e[0] + ':' + '[' + e[1] + '] ' + e[2]
@@ -239,7 +239,7 @@ def pg_sys_ans(state, model='llama3.2', reactor=False, reflexion='', future='', 
     return stategy, response
 
 
-def cb_sys_ans(state, model='llama3.2', reactor=False, reflexion='', future='', reflexion_cur_num=1):
+def cb_sys_ans(state, model='llama3.2', reactor=False, reflexion='', reflexion_cur_num=1):
     history = ''
     for e in state.history:
         history += e[0] + ':' + '[' + e[1] + '] ' + e[2]

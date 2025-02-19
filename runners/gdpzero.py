@@ -25,10 +25,10 @@ logger.setLevel(logging.DEBUG)
 
 def main(cmd_args):
 	game_ontology = PersuasionGame.get_game_ontology()
-	sys_da = game_ontology['system']['dialog_acts']		###"dialog_acts"对话行为
-	user_da = game_ontology['user']['dialog_acts']		###对话行为
-	system_name = PersuasionGame.SYS		###"Persuader"
-	user_name = PersuasionGame.USR		###"Persuadee"
+	sys_da = game_ontology['system']['dialog_acts']
+	user_da = game_ontology['user']['dialog_acts']
+	system_name = PersuasionGame.SYS
+	user_name = PersuasionGame.USR
 
 	exp_1 = DialogSession(system_name, user_name).from_history(EXP_DIALOG)
 	
@@ -91,9 +91,9 @@ def main(cmd_args):
 	num_dialogs = cmd_args.num_dialogs
 	args = dotdict({
 		"cpuct": 1.0,
-		"num_MCTS_sims": cmd_args.num_mcts_sims,	###蒙特卡洛搜索模拟次数
-		"Q_0": cmd_args.Q_0,		###初始化Q值
-		"max_realizations": cmd_args.max_realizations,		###每个蒙特卡洛状态的实现次数
+		"num_MCTS_sims": cmd_args.num_mcts_sims,
+		"Q_0": cmd_args.Q_0,
+		"max_realizations": cmd_args.max_realizations,
 	})
 
 	output = []  # for evaluation. [{did, context, ori_resp, new_resp, debug}, ...]
@@ -105,16 +105,16 @@ def main(cmd_args):
 		if did in bad_dialogs:
 			print("skipping dialog id: ", did)
 			continue
-		if num_done == num_dialogs:		###如果对话进行的轮数等于对话数量，则停止循环
+		if num_done == num_dialogs:
 			break
 
 		print("evaluating dialog id: ", did)
 		context = ""
 		dialog = all_dialogs[did]
 		
-		state = game.init_dialog()		###返回DialogSession
+		state = game.init_dialog()
 		for t, turn in enumerate(dialog["dialog"]):
-			if len(turn["ee"]) == 0:  # ended
+			if len(turn["ee"]) == 0:
 				break
 			# also skip last turn as there is no evaluation
 			if t == len(dialog["dialog"]) - 1:
@@ -142,16 +142,16 @@ def main(cmd_args):
 			# map sys as well
 			sys_utt = " ".join(turn["er"]).strip()
 			sys_da = set(dialog["label"][t]["er"])
-			intersected_das = sys_da.intersection(system.dialog_acts)		###返回一个包含两个或多个集合的交集元素的新集合。
+			intersected_das = sys_da.intersection(system.dialog_acts)
 			if len(intersected_das) == 0:
 				sys_da = "other"
 			else:
-				sys_da = list(intersected_das)[-1]	###就要一个动作
+				sys_da = list(intersected_das)[-1]
 			
-			state.add_single(PersuasionGame.SYS, sys_da, sys_utt)	###（角色、动作、语料）
+			state.add_single(PersuasionGame.SYS, sys_da, sys_utt)
 			state.add_single(PersuasionGame.USR, usr_da, usr_utt)
 
-			# update context for evaluation ###创建多行文本
+			# update context for evaluation
 			context = f"""
 			{context}
 			Persuader: {sys_utt}
@@ -164,16 +164,16 @@ def main(cmd_args):
 				backbone_model._cached_generate.cache_clear()
 			dialog_planner = OpenLoopMCTS(game, planner, args)
 			print("searching")
-			for i in tqdm(range(args.num_MCTS_sims)):	###args.num_MCTS_sims=20
+			for i in tqdm(range(args.num_MCTS_sims)):
 				dialog_planner.search(state)
 
 			mcts_policy = dialog_planner.get_action_prob(state)
 			mcts_policy_next_da = system.dialog_acts[np.argmax(mcts_policy)]
 
-			# # fetch the generated utterance from simulation	###从模拟中获得生成的话语
+			# # fetch the generated utterance from simulation
 			mcts_pred_rep = dialog_planner.get_best_realization(state, np.argmax(mcts_policy))
 
-			# next ground truth utterance		###
+			# next ground truth utterance
 			human_resp = " ".join(dialog["dialog"][t+1]["er"]).strip()
 			next_sys_das = set(dialog["label"][t+1]["er"])
 			next_intersected_das = next_sys_das.intersection(system.dialog_acts)

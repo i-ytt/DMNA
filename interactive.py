@@ -175,14 +175,14 @@ def play_gdpzero(id, backbone_model, args, session_elements=None):
         for i in tqdm(range(args.num_MCTS_sims)):
             dialog_planner.search(state)
 
-        mcts_policy = dialog_planner.get_action_prob(state)  # 根据当前状态 state 获取每个可行行动的概率分布。
+        mcts_policy = dialog_planner.get_action_prob(state)
         mcts_policy_next_da = system.dialog_acts[np.argmax(mcts_policy)]
         logger.info(f"mcts_policy: {mcts_policy}")
         logger.info(f"mcts_policy_next_da: {mcts_policy_next_da}")
         logger.info(dialog_planner.Q)
 
         sys_utt = dialog_planner.get_best_realization(state, np.argmax(
-            mcts_policy))  ##根据当前状态 state 和选定的行动 action 获取最佳的状态实现（即系统回复）
+            mcts_policy))
         logging.info(f"sys_da: [{mcts_policy_next_da}]")
         print(f"{game.SYS}: {sys_utt}")
 

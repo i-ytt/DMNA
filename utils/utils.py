@@ -120,8 +120,6 @@ def generate_response(model, messages, role):
                 flag = False
                 if ':' in output:
                     output = output[output.find(':')+1:]
-                # if len(output.strip().split(' ')) < 4:
-                #     flag = True
             return output
     except Exception as e:
         print('error in user')
